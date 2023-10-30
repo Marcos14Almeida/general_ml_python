@@ -44,7 +44,7 @@ class CleaningRobotEnv(gym.Env):
         # Define the positions of the small dots (mass) (x,y), (x,y)
         self.mass_positions = np.array([[0.4, 0.4], [0.8, 0.7], [0.6, 0.1]])
 
-    def printar(self, angle, reward):
+    def print_title(self, angle, reward):
         print()
         print(f"Robot Position: {self.robot_position}")
         print(f"Robot Velocity: {self.robot_velocity}")
@@ -99,7 +99,7 @@ class CleaningRobotEnv(gym.Env):
         if np.any(np.all(np.isclose(self.robot_position, self.mass_positions), axis=1)):
             reward += 10  # Positive reward for reaching a mass
 
-        self.printar(angle, reward)
+        self.print_title(angle, reward)
 
         return self.robot_position, reward, done, {}
 

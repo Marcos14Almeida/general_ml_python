@@ -44,6 +44,7 @@ z_log_var = layers.Dense(latent_dim, name='z_log_var')(x)
 
 
 # Reparameterization trick
+# It takes z_mean and z_log_var as inputs and generates a random sample z based on the mean and log variance.
 def sampling(args):
     z_mean, z_log_var = args
     epsilon = keras.backend.random_normal(shape=(keras.backend.shape(z_mean)[0], latent_dim), mean=0.0, stddev=1.0)
@@ -53,6 +54,7 @@ def sampling(args):
 z = layers.Lambda(sampling, output_shape=(latent_dim,))([z_mean, z_log_var])
 
 # Decoder
+# The decoder takes the samples from the latent space and maps them back to the original data space.
 decoder_inputs = layers.Input(shape=(latent_dim,))
 x = layers.Dense(256, activation='relu')(decoder_inputs)
 decoder_outputs = layers.Dense(input_dim, activation='sigmoid')(x)
